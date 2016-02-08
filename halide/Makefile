@@ -1,4 +1,4 @@
-HALIDE_HOME=/home/rob/sw/Halide
+HALIDE_HOME=/path/to/Halide
 
 all: prog1 prog2 prog3
 
