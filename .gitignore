@@ -3,3 +3,8 @@
 prog1
 prog2
 prog3
+
+*_flymake.hs
+.stack-work/
+.#*
+*#
