@@ -18,6 +18,7 @@ Image<uint8_t> blurX(Image<uint8_t> input)
   Image<uint8_t> result(input.width()-2, input.height()-2, 3);
   result.set_min(1, 1);
   output.realize(result);
+  result.set_min(0,0);
   return result;
 }
 
@@ -36,6 +37,7 @@ Image<uint8_t> blurY(Image<uint8_t> input)
   Image<uint8_t> result(input.width()-2, input.height()-2, 3);
   result.set_min(1, 1);
   output.realize(result);
+  result.set_min(0, 0);
   return result;
 }
 
