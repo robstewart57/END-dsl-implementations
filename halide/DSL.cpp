@@ -14,6 +14,13 @@ Func blurX(Func continuation)
   blur_x(x, y, c) = (input_16(x-1, y, c) +
                      2 * input_16(x, y, c) +
                      input_16(x+1, y, c)) / 4;
+  // blur_x.vectorize(x, 4);
+  // returns error:
+  //   Cannot vectorize dimension x.v3 of function blur_x because the function is scheduled inline.
+
+  // blur_x.unroll(x);
+  // returns error:
+  //   Cannot unroll dimension x of function blur_x because the function is scheduled inline.
   Func output("outputBlurX");
   output(x, y, c) = cast<uint8_t>(blur_x(x, y, c));
   return output;
@@ -28,6 +35,7 @@ Func blurY(Func continuation)
   blur_y(x, y, c) = (input_16(x, y-1, c) +
                      2 * input_16(x, y, c) +
                      input_16(x, y+1, c)) / 4;
+  // blur_y.vectorize(y, 4);
   Func output("outputBlurY");
   output(x, y, c) = cast<uint8_t>(blur_y(x, y, c));
   return output;
@@ -43,6 +51,7 @@ Func brightenBy(Func continuation, float brightenByVal)
   value = Halide::min(value, 255.0f);
   value = Halide::cast<uint8_t>(value);
   brighten(x, y, c) = value;
+  // brighten.vectorize(x, 4);
   return brighten;
 }
 
