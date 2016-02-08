@@ -1,0 +1,17 @@
+
+* Compiling
+
+Modify the HALIDE_HOME environment variable in the Makefile file to
+point to your Halide installation. Then:
+
+#+BEGIN_SRC sh
+$ make
+#+END_SRC
+
+* Running
+
+#+BEGIN_SRC sh
+$ LD_LIBRARY_PATH=$HALIDE_HOME/bin/ ./prog1
+$ LD_LIBRARY_PATH=$HALIDE_HOME/bin/ ./prog2
+$ LD_LIBRARY_PATH=$HALIDE_HOME/bin/ ./prog3
+#+END_SRC
