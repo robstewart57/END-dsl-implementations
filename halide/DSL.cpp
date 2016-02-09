@@ -41,13 +41,13 @@ Func blurY(Func continuation)
   return output;
 }
 
-Func brightenBy(Func continuation, float brightenByVal)
+Func brightenBy(Func continuation, int brightenByVal)
 {
   Func brighten("brighten");
   Var x, y, c;
   Expr value = continuation(x, y, c);
   value = Halide::cast<float>(value);
-  value = value * brightenByVal;
+  value = value + brightenByVal;
   value = Halide::min(value, 255.0f);
   value = Halide::cast<uint8_t>(value);
   brighten(x, y, c) = value;
@@ -55,13 +55,13 @@ Func brightenBy(Func continuation, float brightenByVal)
   return brighten;
 }
 
-Func darkenBy(Func continuation, float darkenByVal)
+Func darkenBy(Func continuation, int darkenByVal)
 {
   Func brighten("brighten");
   Var x, y, c;
   Expr value = continuation(x, y, c);
   value = Halide::cast<float>(value);
-  value = value * (-darkenByVal);
+  value = value - darkenByVal;
   value = Halide::cast<uint8_t>(value);
   brighten(x, y, c) = value;
   return brighten;

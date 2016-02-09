@@ -4,9 +4,8 @@ using namespace Halide;
 #include "halide_image_io.h"
 using namespace Halide::Tools;
 
-Func blurX(Func func);
-Func blurY(Func func);
 Func brightenBy(Func func, int brightenBy);
+Func darkenBy(Func func, int darkenBy);
 
 int main()
 {
@@ -19,23 +18,20 @@ int main()
   Func img1Fun("img1Fun");
   img1Fun(x, y, c) = cast<uint16_t>(clamped(x, y, c));
 
-  /* blur in the X direction */
-  Func img2Fun = blurX(img1Fun);
-
-  /* blur in the Y direction */
-  Func img3Fun = blurY(img2Fun);
-
   /* brighten */
-  Func img4Fun = brightenBy(img3Fun, 100);
+  Func img2Fun = brightenBy(img1Fun, 50);
+
+  /* then darken */
+  Func img3Fun = darkenBy(img2Fun, 50);
 
   /* cast back down to a uint8 image */
   Func outputFun("outputFun");
-  outputFun(x, y, c) = cast<uint8_t>(img4Fun(x, y, c));
+  outputFun(x, y, c) = cast<uint8_t>(img3Fun(x, y, c));
 
   Image<uint8_t> result(input.width(), input.height(), 3);
 
   outputFun.realize(result);
 
-  save_image(result, "../images/prog3-out-halide.png");
+  save_image(result, "../images/prog4-out-halide.png");
   return 0;
 }
