@@ -2,24 +2,25 @@
 
 module DeepGADT where
 
-import Data.Array.IArray
-
-type Image = Array (Int,Int) Int
+import qualified Data.Vector as V
+import Types
 
 data Exp a where
-    ConImage :: Image -> Exp Image
+    ConImage :: VectorImage -> Exp VectorImage
     ConI     :: Int -> Exp Int
     ConF     :: Int -> Exp Int
-    Brighten :: Exp Int -> Exp Image -> Exp Image
-    Darken   :: Exp Int -> Exp Image -> Exp Image
-    BlurX    :: Exp Image -> Exp Image
-    BlurY    :: Exp Image -> Exp Image
+    Brighten :: Exp Int -> Exp VectorImage -> Exp VectorImage
+    Darken   :: Exp Int -> Exp VectorImage -> Exp VectorImage
+    BlurX    :: Exp VectorImage -> Exp VectorImage
+    BlurY    :: Exp VectorImage -> Exp VectorImage
 
 -- | interpret optimised AST
 eval :: Exp a -> a
 eval (ConImage img) = img
-eval (Brighten i exp) = amap (+ (eval i)) (eval exp)
-eval (Darken   i exp) = amap ((-) (eval i)) (eval exp)
+eval (Brighten i exp) = VectorImage (V.map (onRGB (+1)) pixels) w h
+    where
+      VectorImage pixels w h = eval exp
+eval (Darken   i exp) = undefined -- amap ((-) (eval i)) (eval exp)
 eval (BlurX exp)      = undefined
 eval (BlurY exp)      = undefined
 

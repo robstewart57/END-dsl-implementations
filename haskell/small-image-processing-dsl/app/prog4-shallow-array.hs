@@ -5,7 +5,7 @@ import ShallowArray
 import IO
 
 main = do
-    img <- readImgPlainArray "../../images/train.png"
+    img <- readImgAsVector "../../images/train.png"
     m <- read <$> getLine
     n <- read <$> getLine
     let newImg = (darken n . brighten m) img

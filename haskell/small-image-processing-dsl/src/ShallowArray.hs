@@ -1,14 +1,19 @@
 
 module ShallowArray where
 
-import Data.Array.IArray
+import qualified Data.Vector as V
+import Types
 
-type Image = Array (Int,Int) Int
-
-blurX, blurY :: Image -> Image
+blurX, blurY :: VectorImage -> VectorImage
 blurX = undefined
+-- blurX img = img // newElems
+--     where
+--       rows = undefined
+--       {- blur in X direction -}
+--       newElems = map ( undefined  ) rows
+
 blurY = undefined
 
-brighten,darken :: Int -> Image -> Image
-brighten i = amap (+i)
-darken   i = amap (\p -> p-i)
+brighten,darken :: Int -> VectorImage -> VectorImage
+brighten i (VectorImage pixels w h) = VectorImage (V.map (onRGB (+1)) pixels) w h
+darken   i (VectorImage pixels w h) = VectorImage (V.map (onRGB (\x -> x-1)) pixels) w h

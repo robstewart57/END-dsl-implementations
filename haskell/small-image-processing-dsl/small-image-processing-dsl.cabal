@@ -1,25 +1,27 @@
 name:                small-image-processing-dsl
 version:             0.1.0.0
-synopsis:            Initial project template from stack
+synopsis:            Shallow and deep embeddings of a small image processing DSL
 description:         Please see README.md
-homepage:            http://github.com/githubuser/small-image-processing-dsl#readme
+homepage:            https://github.com/robstewart57/small-image-processing-dsl-implementations
 license:             BSD3
 license-file:        LICENSE
-author:              Author name here
-maintainer:          example@example.com
-copyright:           2016 Author Here
-category:            Web
+author:              Rob Stewart
+maintainer:          robstewart57@gmail.com
+copyright:           2016 Rob Stewart, EPSRC Rathlin Project EP/K009931/1
+category:            Graphics
 build-type:          Simple
 -- extra-source-files:
 cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     GADT
+  exposed-modules:     DeepGADT
                      , ShallowArray
                      , IO
   build-depends:       base >= 4.7 && < 5
+                     -- TODO: remove array
                      , array
+                     , vector
   default-language:    Haskell2010
 
 executable prog1-shallow-array
