@@ -6,4 +6,4 @@ import IO
 
 main = do
     img1 <- readImgPlainArray "../../images/train.png"
-    print (eval (BlurX (ConImage img1)))
+    print (run (BlurX (ConImage img1)))

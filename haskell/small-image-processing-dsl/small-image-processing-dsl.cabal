@@ -16,12 +16,61 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     GADT
+                     , ShallowArray
                      , IO
   build-depends:       base >= 4.7 && < 5
                      , array
   default-language:    Haskell2010
 
+executable prog1-shallow-array
+  hs-source-dirs:      app
+  main-is:             prog1-shallow-array.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , small-image-processing-dsl
+  default-language:    Haskell2010
+
+executable prog2-shallow-array
+  hs-source-dirs:      app
+  main-is:             prog2-shallow-array.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , small-image-processing-dsl
+  default-language:    Haskell2010
+
+executable prog3-shallow-array
+  hs-source-dirs:      app
+  main-is:             prog3-shallow-array.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , small-image-processing-dsl
+  default-language:    Haskell2010
+
+executable prog4-shallow-array
+  hs-source-dirs:      app
+  main-is:             prog4-shallow-array.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , small-image-processing-dsl
+  default-language:    Haskell2010
+
 executable prog1-deep-gadt
+  hs-source-dirs:      app
+  main-is:             prog1-gadt.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , small-image-processing-dsl
+  default-language:    Haskell2010
+
+executable prog2-deep-gadt
+  hs-source-dirs:      app
+  main-is:             prog1-gadt.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , small-image-processing-dsl
+  default-language:    Haskell2010
+
+executable prog3-deep-gadt
   hs-source-dirs:      app
   main-is:             prog1-gadt.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
