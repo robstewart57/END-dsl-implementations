@@ -1,15 +1,17 @@
-Language
---------
 
+* Language
+
+#+BEGIN_EXAMPLE
 brighten : Int -> Image -> Image
 darken   : Int -> Image -> Image
 blurX    : Image -> Image
 blurY    : Image -> Image
-maxPixel : Image -> Int
+#+END_EXAMPLE
 
-Programs
---------
+* Programs
 
+
+#+BEGIN_EXAMPLE
 prog1 =
   img  = imread("foo.bmp");
   img2 = brighten(img);
@@ -33,3 +35,4 @@ prog4 =
   img2 = brighten(10,img1);
   img3 = darken(10,img2);
   imwrite(img3,"prog4-out.bmp");
+#+END_EXAMPLE
