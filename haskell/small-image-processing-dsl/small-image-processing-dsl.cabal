@@ -17,11 +17,11 @@ library
   hs-source-dirs:      src
   exposed-modules:     DeepGADT
                      , ShallowArray
+                     , ShallowRepa
                      , IO
   build-depends:       base >= 4.7 && < 5
-                     -- TODO: remove array
-                     , array
                      , vector
+                     , repa
   default-language:    Haskell2010
 
 executable prog1-shallow-array
