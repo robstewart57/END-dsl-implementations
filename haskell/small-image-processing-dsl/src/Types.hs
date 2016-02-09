@@ -3,8 +3,10 @@ module Types where
 
 import Data.Vector
 
+data RelativePosition = Above | Below | LeftOf | RightOf
+
 data VectorImage = VectorImage
-           { pixels :: Vector (Int,Int,Int)
+           { pixels :: Vector (Int,Int,Int) -- ^ row major order
            , width  :: Int
            , height :: Int
            }
