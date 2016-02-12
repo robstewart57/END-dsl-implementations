@@ -57,6 +57,6 @@ rgbAt  Above vec idx = undefined
 rgbAt  Below vec idx = undefined
 
 
-brighten,darken :: Int -> VectorImage -> VectorImage
-brighten i (VectorImage pixels w h) = VectorImage (V.map (onRGB (+1)) pixels) w h
-darken   i (VectorImage pixels w h) = VectorImage (V.map (onRGB (\x -> x-1)) pixels) w h
+brightenBy,darkenBy :: Int -> VectorImage -> VectorImage
+brightenBy i (VectorImage pixels w h) = VectorImage (V.map (onRGB (+1)) pixels) w h
+darkenBy   i (VectorImage pixels w h) = VectorImage (V.map (onRGB (\x -> x-1)) pixels) w h

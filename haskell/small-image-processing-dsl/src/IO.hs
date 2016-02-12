@@ -10,3 +10,6 @@ time = undefined
 
 readImgAsVector :: String -> IO VectorImage
 readImgAsVector = undefined
+
+readImgAsRepaArray :: String -> IO RepaImage
+readImgAsRepaArray = undefined
