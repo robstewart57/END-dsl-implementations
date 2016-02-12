@@ -1,11 +1,13 @@
 
 module Main where
 
+import Prelude hiding ((+),(-))
 import DeepGADT
 import IO
 
--- | essentially no computation
 main = do
-    img1 <- readImgPlainArray "../../images/train.png"
-    let newImg = run (Darken (ConI 10) ((Brighten (ConI 10) (ConImage img1)))))
+    img <- readImgAsVector "../../images/maisie.png"
+    m <- read <$> getLine
+--    let newImg = run $ darkenBy (int m) (brightenBy (int m) (image img))
+    let newImg = run $ (image img + integer m) - integer m
     return () -- TODO time newImg to normal form.

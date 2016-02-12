@@ -1,8 +1,10 @@
 
-module ShallowArray where
+module ShallowVector where
 
 import qualified Data.Vector as V
 import Types
+
+-- TODO: overload + and - to be brightenBy and darkenBy
 
 blurX, blurY :: VectorImage -> VectorImage
 blurX img@(VectorImage pixels w h) = VectorImage (V.imap blurAtPosition pixels) w h

@@ -27,12 +27,21 @@ prog3 =
   img  = imread("foo.bmp");
   img2 = blurX(img);
   img3 = blurY(img2);
-  img4 = brighten(img3, 1.5);
+  img4 = brighten(50 , img3);
   imwrite(img4,"prog3-out.bmp");
 
 prog4 =
   img1 = imread("foo.bmp");
-  img2 = brighten(10,img1);
-  img3 = darken(10,img2);
+  m    = getLine();
+  img2 = brighten(m,img1);
+  img3 = darken(m,img2);
   imwrite(img3,"prog4-out.bmp");
+
+prog5 =
+  img1 = imread("foo.bmp");
+  m    = getLine();
+  n    = getLine();
+  img2 = brighten(m,img1);
+  img3 = darken(n,img2);
+  imwrite(img3,"prog5-out.bmp");
 #+END_EXAMPLE

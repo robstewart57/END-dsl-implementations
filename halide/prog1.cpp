@@ -10,7 +10,7 @@ int main()
 {
   Var x("x"), y("y"), c("c");
 
-  Image<uint8_t> input = load_image("../images/train.png");
+  Image<uint8_t> input = load_image("../images/maisie.png");
   Func clamped("clamped");
   clamped = BoundaryConditions::repeat_edge(input);
 

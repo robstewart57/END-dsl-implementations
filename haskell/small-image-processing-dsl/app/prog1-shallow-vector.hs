@@ -1,7 +1,7 @@
 
 module Main where
 
-import ShallowArray
+import ShallowVector
 import IO
 
 main = do

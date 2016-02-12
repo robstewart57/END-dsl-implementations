@@ -17,7 +17,7 @@ library
   hs-source-dirs:      src
   exposed-modules:     DeepGADT
                      , DeepAccelerate
-                     , ShallowArray
+                     , ShallowVector
                      , ShallowRepa
                      , IO
   build-depends:       base >= 4.7 && < 5
@@ -25,33 +25,33 @@ library
                      , repa
   default-language:    Haskell2010
 
-executable prog1-shallow-array
+executable prog1-shallow-vector
   hs-source-dirs:      app
-  main-is:             prog1-shallow-array.hs
+  main-is:             prog1-shallow-vector.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
 
-executable prog2-shallow-array
+executable prog2-shallow-vector
   hs-source-dirs:      app
-  main-is:             prog2-shallow-array.hs
+  main-is:             prog2-shallow-vector.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
 
-executable prog3-shallow-array
+executable prog3-shallow-vector
   hs-source-dirs:      app
-  main-is:             prog3-shallow-array.hs
+  main-is:             prog3-shallow-vector.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
 
-executable prog4-shallow-array
+executable prog4-shallow-vector
   hs-source-dirs:      app
-  main-is:             prog4-shallow-array.hs
+  main-is:             prog4-shallow-vector.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
                      , small-image-processing-dsl

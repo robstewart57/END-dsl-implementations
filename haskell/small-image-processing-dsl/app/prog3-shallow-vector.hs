@@ -1,10 +1,11 @@
 
 module Main where
 
-import ShallowArray
+import Prelude hiding ((+),(-))
+import ShallowVector
 import IO
 
 main = do
     img <- readImgAsVector "../../images/train.png"
-    let newImg = (blurX . blurX) img
+    let newImg = (brightenBy 10 . blurY . blurX) img
     return () -- TODO time newImg to normal form.

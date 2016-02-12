@@ -1,10 +1,12 @@
 
 module Main where
 
-import ShallowArray
+import ShallowVector
 import IO
 
 main = do
     img <- readImgAsVector "../../images/train.png"
-    let newImg = (brightenBy 10 . blurY . blurX) img
+    m <- read <$> getLine
+    n <- read <$> getLine
+    let newImg = (darkenBy n . brightenBy m) img
     return () -- TODO time newImg to normal form.
