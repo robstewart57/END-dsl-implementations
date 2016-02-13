@@ -5,17 +5,18 @@ using namespace Halide;
 using namespace Halide::Tools;
 
 Func blurX(Func func);
+Func rgb_to_luminance_grey(Image<uint8_t> input);
 
 int main()
 {
   Var x("x"), y("y"), c("c");
 
-  Image<uint8_t> input = load_image("../images/train.png");
-  Func clamped("clamped");
-  clamped = BoundaryConditions::repeat_edge(input);
+  Image<uint8_t> input = load_image("../images/maisie.png");
+  Func inputImg("inputImg");
+  inputImg = rgb_to_luminance_grey(input);
 
   Func img1Fun("img1Fun");
-  img1Fun(x, y, c) = cast<uint16_t>(clamped(x, y, c));
+  img1Fun(x, y, c) = cast<uint16_t>(inputImg(x, y, c));
 
   /* blur the image */
   Func img2Fun = blurX(img1Fun);

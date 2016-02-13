@@ -4,6 +4,19 @@ using namespace Halide;
 #include "halide_image_io.h"
 using namespace Halide::Tools;
 
+// r' * 0.3 + g' * 0.59 + b' * 0.11
+
+Func rgb_to_luminance_grey(Image<uint8_t> input)
+{
+  Var x("x"), y("y"), c("c"), d("d");
+  Func clamped("clamped");
+  clamped = BoundaryConditions::repeat_edge(input);
+  Func greyImg("greyImg");
+  greyImg(x,y,d) = clamped(x,y,0) * 0.3f
+                 + clamped(x,y,1) * 0.59f
+                 + clamped(x,y,2) * 0.11f;
+  return greyImg;
+}
 
 Func blurX(Func continuation)
 {
