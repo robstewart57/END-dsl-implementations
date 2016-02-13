@@ -26,7 +26,7 @@ library
   default-language:    Haskell2010
 
 executable prog1-shallow-vector
-  hs-source-dirs:      app
+  hs-source-dirs:      app/shallow-vector
   main-is:             prog1-shallow-vector.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
@@ -34,7 +34,7 @@ executable prog1-shallow-vector
   default-language:    Haskell2010
 
 executable prog2-shallow-vector
-  hs-source-dirs:      app
+  hs-source-dirs:      app/shallow-vector
   main-is:             prog2-shallow-vector.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
@@ -42,7 +42,7 @@ executable prog2-shallow-vector
   default-language:    Haskell2010
 
 executable prog3-shallow-vector
-  hs-source-dirs:      app
+  hs-source-dirs:      app/shallow-vector
   main-is:             prog3-shallow-vector.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
@@ -50,7 +50,7 @@ executable prog3-shallow-vector
   default-language:    Haskell2010
 
 executable prog4-shallow-vector
-  hs-source-dirs:      app
+  hs-source-dirs:      app/shallow-vector
   main-is:             prog4-shallow-vector.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
@@ -58,7 +58,7 @@ executable prog4-shallow-vector
   default-language:    Haskell2010
 
 executable prog1-shallow-repa
-  hs-source-dirs:      app
+  hs-source-dirs:      app/shallow-repa
   main-is:             prog1-shallow-repa.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
@@ -66,7 +66,7 @@ executable prog1-shallow-repa
   default-language:    Haskell2010
 
 executable prog2-shallow-repa
-  hs-source-dirs:      app
+  hs-source-dirs:      app/shallow-repa
   main-is:             prog2-shallow-repa.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
@@ -74,7 +74,7 @@ executable prog2-shallow-repa
   default-language:    Haskell2010
 
 executable prog3-shallow-repa
-  hs-source-dirs:      app
+  hs-source-dirs:      app/shallow-repa
   main-is:             prog3-shallow-repa.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
@@ -82,7 +82,7 @@ executable prog3-shallow-repa
   default-language:    Haskell2010
 
 executable prog4-shallow-repa
-  hs-source-dirs:      app
+  hs-source-dirs:      app/shallow-repa
   main-is:             prog4-shallow-repa.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
@@ -90,7 +90,7 @@ executable prog4-shallow-repa
   default-language:    Haskell2010
 
 executable prog1-deep-gadt
-  hs-source-dirs:      app
+  hs-source-dirs:      app/deep-gadt
   main-is:             prog1-deep-gadt.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
@@ -98,7 +98,7 @@ executable prog1-deep-gadt
   default-language:    Haskell2010
 
 executable prog2-deep-gadt
-  hs-source-dirs:      app
+  hs-source-dirs:      app/deep-gadt
   main-is:             prog2-deep-gadt.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
@@ -106,7 +106,7 @@ executable prog2-deep-gadt
   default-language:    Haskell2010
 
 executable prog3-deep-gadt
-  hs-source-dirs:      app
+  hs-source-dirs:      app/deep-gadt
   main-is:             prog3-deep-gadt.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
@@ -114,7 +114,7 @@ executable prog3-deep-gadt
   default-language:    Haskell2010
 
 executable prog4-deep-gadt
-  hs-source-dirs:      app
+  hs-source-dirs:      app/deep-gadt
   main-is:             prog4-deep-gadt.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
@@ -122,7 +122,7 @@ executable prog4-deep-gadt
   default-language:    Haskell2010
 
 executable prog1-deep-accelerate
-  hs-source-dirs:      app
+  hs-source-dirs:      app/deep-accelerate
   main-is:             prog1-deep-accelerate.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
@@ -130,7 +130,7 @@ executable prog1-deep-accelerate
   default-language:    Haskell2010
 
 executable prog2-deep-accelerate
-  hs-source-dirs:      app
+  hs-source-dirs:      app/deep-accelerate
   main-is:             prog2-deep-accelerate.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
@@ -138,7 +138,7 @@ executable prog2-deep-accelerate
   default-language:    Haskell2010
 
 executable prog3-deep-accelerate
-  hs-source-dirs:      app
+  hs-source-dirs:      app/deep-accelerate
   main-is:             prog3-deep-accelerate.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
@@ -146,7 +146,7 @@ executable prog3-deep-accelerate
   default-language:    Haskell2010
 
 executable prog4-deep-accelerate
-  hs-source-dirs:      app
+  hs-source-dirs:      app/deep-accelerate
   main-is:             prog4-deep-accelerate.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
