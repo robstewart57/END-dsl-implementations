@@ -6,5 +6,5 @@ import IO
 
 main = do
     img <- readImgAsVector "../../images/train.png"
-    let newImg = blurX img
+    let newImg = brightenBy 20 img
     return () -- TODO time newImg to normal form.
