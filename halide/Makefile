@@ -1,6 +1,6 @@
 HALIDE_HOME?=/path/to/Halide
 
-all: prog1 prog2 prog3 prog4
+all: prog1 prog2 prog3 prog4 prog5
 
 prog1: DSL.o prog1.o
 	g++ DSL.o prog1.o -o prog1 -g -std=c++11 -I $(HALIDE_HOME)/include -I $(HALIDE_HOME)/tools -L $(HALIDE_HOME)/bin -lHalide `libpng-config --cflags --ldflags` -lpthread -ldl
@@ -14,6 +14,9 @@ prog3: DSL.o prog3.o
 prog4: DSL.o prog4.o
 	g++ DSL.o prog4.o -o prog4 -g -std=c++11 -I $(HALIDE_HOME)/include -I $(HALIDE_HOME)/tools -L $(HALIDE_HOME)/bin -lHalide `libpng-config --cflags --ldflags` -lpthread -ldl
 
+prog5: DSL.o prog5.o
+	g++ DSL.o prog5.o -o prog5 -g -std=c++11 -I $(HALIDE_HOME)/include -I $(HALIDE_HOME)/tools -L $(HALIDE_HOME)/bin -lHalide `libpng-config --cflags --ldflags` -lpthread -ldl
+
 prog1.o:
 	g++ -c prog1.cpp -g -std=c++11 -I $(HALIDE_HOME)/include -I $(HALIDE_HOME)/tools -L $(HALIDE_HOME)/bin -lHalide `libpng-config --cflags --ldflags` -lpthread -ldl
 
@@ -26,8 +29,11 @@ prog3.o:
 prog4.o:
 	g++ -c prog4.cpp -g -std=c++11 -I $(HALIDE_HOME)/include -I $(HALIDE_HOME)/tools -L $(HALIDE_HOME)/bin -lHalide `libpng-config --cflags --ldflags` -lpthread -ldl
 
+prog5.o:
+	g++ -c prog5.cpp -g -std=c++11 -I $(HALIDE_HOME)/include -I $(HALIDE_HOME)/tools -L $(HALIDE_HOME)/bin -lHalide `libpng-config --cflags --ldflags` -lpthread -ldl
+
 DSL.o:
 	g++ -c DSL.cpp -g -std=c++11 -I $(HALIDE_HOME)/include -I $(HALIDE_HOME)/tools -L $(HALIDE_HOME)/bin -lHalide `libpng-config --cflags --ldflags` -lpthread -ldl
 
 clean:
-	rm *.o prog1 prog2 prog3
+	rm *.o prog1 prog2 prog3 prog4 prog5

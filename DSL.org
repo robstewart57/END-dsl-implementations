@@ -2,6 +2,9 @@
 * Language
 
 #+BEGIN_EXAMPLE
+imread   : String -> Image
+imwrite  : Image -> String -> ()
+brighten : Int -> Image -> Image
 brighten : Int -> Image -> Image
 darken   : Int -> Image -> Image
 blurX    : Image -> Image
@@ -13,35 +16,35 @@ blurY    : Image -> Image
 
 #+BEGIN_EXAMPLE
 prog1 =
-  img  = imread("foo.bmp");
-  img2 = brighten(img);
-  imwrite(img2,"prog1-out.bmp");
+  img1 = imread("in.png");
+  img2 = brightenBy(20,img1);
+  imwrite(img2,"prog1-out.png");
 
 prog2 =
-  img  = imread("foo.bmp");
-  img2 = blurX(img);
+  img1 = imread("in.png");
+  img2 = blurX(img1);
   img3 = blurX(img2);
-  imwrite(img3,"prog2-out.bmp");
+  imwrite(img3,"prog2-out.png");
 
 prog3 =
-  img  = imread("foo.bmp");
-  img2 = blurX(img);
-  img3 = blurY(img2);
-  img4 = brighten(50 , img3);
-  imwrite(img4,"prog3-out.bmp");
+  img1 = imread("in.png");
+  m    = getLine();
+  img2 = brightenBy(m,img1);
+  img3 = darkenBy(m,img2);
+  imwrite(img2,"prog3-out.png");
 
 prog4 =
-  img1 = imread("foo.bmp");
-  m    = getLine();
-  img2 = brighten(m,img1);
-  img3 = darken(m,img2);
-  imwrite(img3,"prog4-out.bmp");
-
-prog5 =
-  img1 = imread("foo.bmp");
+  img1 = imread("in.png");
   m    = getLine();
   n    = getLine();
-  img2 = brighten(m,img1);
-  img3 = darken(n,img2);
-  imwrite(img3,"prog5-out.bmp");
+  img2 = brightenBy(m,img1);
+  img3 = darkenBy(n,img2);
+  imwrite(img3,"prog4-out.png");
+
+prog5 =
+  img1 = imread("in.png");
+  img2 = blurX(img1);
+  img3 = blurY(img2);
+  img4 = brightenBy(30,img3);
+  imwrite(img4,"prog5-out.png");
 #+END_EXAMPLE

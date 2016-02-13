@@ -4,18 +4,24 @@ using namespace Halide;
 #include "halide_image_io.h"
 using namespace Halide::Tools;
 
-// r' * 0.3 + g' * 0.59 + b' * 0.11
-
-Func rgb_to_luminance_grey(Image<uint8_t> input)
+Func rgb_to_grey(Image<uint8_t> input)
 {
   Var x("x"), y("y"), c("c"), d("d");
   Func clamped("clamped");
   clamped = BoundaryConditions::repeat_edge(input);
   Func greyImg("greyImg");
-  greyImg(x,y,d) = clamped(x,y,0) * 0.3f
-                 + clamped(x,y,1) * 0.59f
-                 + clamped(x,y,2) * 0.11f;
+  greyImg(x,y,d) =
+    clamped(x,y,0) * 0.3f
+    + clamped(x,y,1) * 0.59f
+    + clamped(x,y,2) * 0.11f;
   return greyImg;
+}
+
+void imwrite(std::string fname, int width, int height, Func continuation)
+{
+  Image<uint8_t> result(width, height, 1);
+  continuation.realize(result);
+  save_image(result, fname);
 }
 
 Func blurX(Func continuation)
@@ -54,7 +60,7 @@ Func blurY(Func continuation)
   return output;
 }
 
-Func brightenBy(Func continuation, int brightenByVal)
+Func brightenBy(int brightenByVal, Func continuation)
 {
   Func brighten("brighten");
   Var x, y, c;
@@ -68,7 +74,7 @@ Func brightenBy(Func continuation, int brightenByVal)
   return brighten;
 }
 
-Func darkenBy(Func continuation, int darkenByVal)
+Func darkenBy(int darkenByVal, Func continuation)
 {
   Func brighten("brighten");
   Var x, y, c;
