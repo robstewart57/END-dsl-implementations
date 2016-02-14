@@ -6,9 +6,27 @@ resolver: lts-5.2
 
 # Local packages, usually specified by relative directory name
 packages:
-- '.'
+# - '.'
+
+# packages:
+# - location:
+#     git: https://github.com/AccelerateHS/accelerate.git
+#     commit: 2098038b9316e2a5d9bed54c61bf4582469d9e06
+# - location:
+#     git: https://github.com/AccelerateHS/accelerate-llvm.git
+#     commit: 2526aeb8cff66e94ce3f2a7666be1ab11d14fedb
+#   subdirs:
+#   - accelerate-llvm-native
+#   - accelerate-llvm
+
 # Packages to be pulled from upstream that are not in the resolver (e.g., acme-missiles-0.3)
-extra-deps: []
+extra-deps:
+- chaselev-deque-0.5.0.5
+- llvm-general-3.5.1.2
+- llvm-general-pure-3.5.1.0
+- unique-0
+- libffi-0.1
+- accelerate-io-0.15.1.0
 
 # Override default flag values for local packages and extra-deps
 flags: {}

@@ -27,6 +27,9 @@ library
                      , repa-devil
                      , directory
                      , deepseq
+                     , accelerate
+                     , accelerate-io
+--                     , accelerate-llvm-native
   ghc-options:         -Odph -rtsopts -threaded -fno-liberate-case -funfolding-use-threshold1000 -funfolding-keeness-factor1000 -fllvm -optlo-O3
   default-language:    Haskell2010
 

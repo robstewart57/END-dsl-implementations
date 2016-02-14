@@ -8,6 +8,5 @@ import Text.Printf
 main = do
     img <- readImgAsRepaArray "../../images/maisie.png"
     m <- read <$> getLine
-    (diff,newImg) <- time $ run ((darkenBy m . brightenBy m) img)
-    printf "%0.3f\n" (diff :: Double)
+    newImg <- printTimeIO $ run ((darkenBy m . brightenBy m) img)
     writeRepaImg "../../images/prog3-out-repa.png" newImg
