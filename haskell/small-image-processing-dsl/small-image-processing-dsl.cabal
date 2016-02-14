@@ -20,15 +20,20 @@ library
                      , ShallowVector
                      , ShallowRepa
                      , IO
+                     , Types
   build-depends:       base >= 4.7 && < 5
                      , vector
                      , repa
+                     , repa-devil
+                     , directory
+                     , deepseq
+  ghc-options:         -Odph -rtsopts -threaded -fno-liberate-case -funfolding-use-threshold1000 -funfolding-keeness-factor1000 -fllvm -optlo-O3
   default-language:    Haskell2010
 
 executable prog1-shallow-vector
   hs-source-dirs:      app/shallow-vector
   main-is:             prog1.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -fllvm -O2
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -36,7 +41,7 @@ executable prog1-shallow-vector
 executable prog2-shallow-vector
   hs-source-dirs:      app/shallow-vector
   main-is:             prog2.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -fllvm -O2
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -44,7 +49,7 @@ executable prog2-shallow-vector
 executable prog3-shallow-vector
   hs-source-dirs:      app/shallow-vector
   main-is:             prog3.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -fllvm -O2
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -52,7 +57,7 @@ executable prog3-shallow-vector
 executable prog4-shallow-vector
   hs-source-dirs:      app/shallow-vector
   main-is:             prog4.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -fllvm -O2
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -60,7 +65,7 @@ executable prog4-shallow-vector
 executable prog5-shallow-vector
   hs-source-dirs:      app/shallow-vector
   main-is:             prog5.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -fllvm -O2
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -68,7 +73,7 @@ executable prog5-shallow-vector
 executable prog1-shallow-repa
   hs-source-dirs:      app/shallow-repa
   main-is:             prog1.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Odph -rtsopts -threaded -fno-liberate-case -funfolding-use-threshold1000 -funfolding-keeness-factor1000 -fllvm -optlo-O3
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -76,7 +81,7 @@ executable prog1-shallow-repa
 executable prog2-shallow-repa
   hs-source-dirs:      app/shallow-repa
   main-is:             prog2.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Odph -rtsopts -threaded -fno-liberate-case -funfolding-use-threshold1000 -funfolding-keeness-factor1000 -fllvm -optlo-O3
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -84,7 +89,7 @@ executable prog2-shallow-repa
 executable prog3-shallow-repa
   hs-source-dirs:      app/shallow-repa
   main-is:             prog3.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Odph -rtsopts -threaded -fno-liberate-case -funfolding-use-threshold1000 -funfolding-keeness-factor1000 -fllvm -optlo-O3
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -92,7 +97,7 @@ executable prog3-shallow-repa
 executable prog4-shallow-repa
   hs-source-dirs:      app/shallow-repa
   main-is:             prog4.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Odph -rtsopts -threaded -fno-liberate-case -funfolding-use-threshold1000 -funfolding-keeness-factor1000 -fllvm -optlo-O3
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -100,7 +105,7 @@ executable prog4-shallow-repa
 executable prog5-shallow-repa
   hs-source-dirs:      app/shallow-repa
   main-is:             prog5.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Odph -rtsopts -threaded -fno-liberate-case -funfolding-use-threshold1000 -funfolding-keeness-factor1000 -fllvm -optlo-O3
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -108,7 +113,7 @@ executable prog5-shallow-repa
 executable prog1-deep-gadt
   hs-source-dirs:      app/deep-gadt
   main-is:             prog1.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -fllvm -O2
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -116,7 +121,7 @@ executable prog1-deep-gadt
 executable prog2-deep-gadt
   hs-source-dirs:      app/deep-gadt
   main-is:             prog2.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -fllvm -O2
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -124,7 +129,7 @@ executable prog2-deep-gadt
 executable prog3-deep-gadt
   hs-source-dirs:      app/deep-gadt
   main-is:             prog3.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -fllvm -O2
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -132,7 +137,7 @@ executable prog3-deep-gadt
 executable prog4-deep-gadt
   hs-source-dirs:      app/deep-gadt
   main-is:             prog4.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -fllvm -O2
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -140,7 +145,7 @@ executable prog4-deep-gadt
 executable prog5-deep-gadt
   hs-source-dirs:      app/deep-gadt
   main-is:             prog5.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -fllvm -O2
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -148,7 +153,7 @@ executable prog5-deep-gadt
 executable prog1-deep-accelerate
   hs-source-dirs:      app/deep-accelerate
   main-is:             prog1.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -fllvm -O2
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -156,7 +161,7 @@ executable prog1-deep-accelerate
 executable prog2-deep-accelerate
   hs-source-dirs:      app/deep-accelerate
   main-is:             prog2.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -fllvm -O2
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -164,7 +169,7 @@ executable prog2-deep-accelerate
 executable prog3-deep-accelerate
   hs-source-dirs:      app/deep-accelerate
   main-is:             prog3.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -fllvm -O2
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -172,7 +177,7 @@ executable prog3-deep-accelerate
 executable prog4-deep-accelerate
   hs-source-dirs:      app/deep-accelerate
   main-is:             prog4.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -fllvm -O2
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010
@@ -180,7 +185,7 @@ executable prog4-deep-accelerate
 executable prog5-deep-accelerate
   hs-source-dirs:      app/deep-accelerate
   main-is:             prog5.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -fllvm -O2
   build-depends:       base
                      , small-image-processing-dsl
   default-language:    Haskell2010

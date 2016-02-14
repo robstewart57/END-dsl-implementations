@@ -28,7 +28,7 @@ blurY      = BlurY
 eval :: Exp a -> a
 eval (ConInt i)     = i
 eval (ConImage img) = img
-eval (BrightenBy exp i) = VectorImage (V.map (onRGB (Prelude.+ 1)) pixels) w h
+eval (BrightenBy exp i) = VectorImage (V.map ((Prelude.+ 1)) pixels) w h
     where
       VectorImage pixels w h = eval exp
 eval (DarkenBy  exp i)  = undefined -- amap ((-) (eval i)) (eval exp)
