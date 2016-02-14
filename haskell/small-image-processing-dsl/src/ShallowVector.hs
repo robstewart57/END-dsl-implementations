@@ -42,13 +42,6 @@ blurY img@(VectorImage pixels w h) = VectorImage (V.imap blurAtPosition pixels) 
 blur :: Int -> Int -> Int -> Int
 blur = undefined
 
--- blur :: (Int,Int,Int) -> (Int,Int,Int) -> (Int,Int,Int) -> (Int,Int,Int)
--- blur (r,g,b) (rBefore,gBefore,bBefore) (rAfter,gAfter,bAfter) = (newR,newG,newB)
---     where
---       newR = floor (fromIntegral (r * 2 + rBefore + rAfter) / 4.0)
---       newG = floor (fromIntegral (g * 2 + gBefore + gAfter) / 4.0)
---       newB = floor (fromIntegral (b * 2 + bBefore + bAfter) / 4.0)
-
 leftEdgePixel, rightEdgePixel, topEdgePixel, bottomEdgePixel :: VectorImage -> Int -> Bool
 leftEdgePixel   = undefined
 rightEdgePixel  = undefined
