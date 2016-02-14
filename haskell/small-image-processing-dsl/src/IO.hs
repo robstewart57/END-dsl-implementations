@@ -40,8 +40,8 @@ readImgAsRepaArray fname = do
       readImg =
           runIL $ do
             (RGB a) <- readImage fname
-            img <- computeP $ traverse a (\(Z :. x :. y :. _) -> (Z :. x :. y)) luminosity :: IL (Array U DIM2 Word8)
-            promote img
+            img <- computeP $ traverse a (\(Z :. x :. y :. _) -> (Z :. x :. y)) luminosity :: IL (Array U DIM2 Int)
+            return img
 
 -- writeImage :: FilePath -> Image -> IL ()
 writeRepaImg :: String -> RepaImageComputed -> IO ()
@@ -57,26 +57,18 @@ removeIfExists fileName = removeFile fileName `catch` handleExists
           | isDoesNotExistError e = return ()
           | otherwise = throwIO e
 
-luminosity :: (DIM3 -> Word8) -> DIM2 -> Word8
+luminosity :: (DIM3 -> Word8) -> DIM2 -> Int
 luminosity f (Z :. i :. j) = ceiling $ (0.21::Double) * r + 0.71 * g + 0.07 * b
     where
         r = fromIntegral $ f (Z :. i :. j :. 0)
         g = fromIntegral $ f (Z :. i :. j :. 1)
         b = fromIntegral $ f (Z :. i :. j :. 2)
 
-promote :: Monad m => Array U DIM2 Word8 -> m (Array U DIM2 Double)
-promote arr
- = computeP $ R.map ffs arr
- where  {-# INLINE ffs #-}
-        ffs     :: Word8 -> Double
-        ffs x   =  fromIntegral (fromIntegral x :: Int)
-{-# NOINLINE promote #-}
-
-demote  :: Monad m => Array U DIM2 Double -> m (Array F DIM2 Word8)
+demote  :: Monad m => Array U DIM2 Int -> m (Array F DIM2 Word8)
 demote arr
  = computeP $ R.map ffs arr
 
  where  {-# INLINE ffs #-}
-        ffs     :: Double -> Word8
-        ffs x   =  fromIntegral (truncate x :: Int)
+        ffs     :: Int -> Word8
+        ffs x   =  fromIntegral (x :: Int)
 {-# NOINLINE demote #-}

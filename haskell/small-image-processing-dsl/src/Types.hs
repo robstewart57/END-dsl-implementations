@@ -11,8 +11,8 @@ import Data.Array.Repa.Eval (Load)
 
 data RelativePosition = Above | Below | LeftOf | RightOf
 
-type RepaImage = Array D (Z :. Int :. Int) Double
-type RepaImageComputed = Array U (Z :. Int :. Int) Double
+type RepaImage = Array D (Z :. Int :. Int) Int
+type RepaImageComputed = Array U (Z :. Int :. Int) Int
 
 data VectorImage = VectorImage
            { pixels :: Vector Int -- ^ row major order
