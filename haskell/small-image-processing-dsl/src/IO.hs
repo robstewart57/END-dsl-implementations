@@ -7,6 +7,7 @@ module IO where
 -- import Data.Array
 import Prelude hiding (traverse)
 import Data.Vector hiding (force)
+import qualified Data.Vector as V
 import Data.Array.Repa
 import Types
 import System.CPUTime
@@ -22,6 +23,7 @@ import System.IO.Error hiding (catch)
 import Data.Array.Accelerate.IO
 import qualified Data.Array.Accelerate as A
 import Text.Printf
+import qualified Codec.Picture as Codec
 
 printDiff start end = do
     let diff = (fromIntegral (end - start)) / (10^12)
@@ -47,17 +49,30 @@ printTime f = do
   printDiff start end
   return f
 
+writeVectorImage :: String -> VectorImage -> IO ()
+writeVectorImage fname vecImg = Codec.writePng fname img
+    where
+      img = Codec.generateImage (\x y -> (fromIntegral $ (V.!) (pixels vecImg) ((width vecImg)*y + x))::Word8) (width vecImg) (height vecImg)
 
--- TODO: use bang pattern on read image
 readImgAsVector :: String -> IO VectorImage
-readImgAsVector = undefined
+readImgAsVector fname = do
+    (Right !img) <- Codec.readImage fname
+    case img of
+     Codec.ImageRGB8 rgbImg -> do
+          let Codec.Image imgWidth imgHeight _ = rgbImg
+              positions = Prelude.concatMap (\h -> Prelude.map (\w -> (w,h)) [0..imgWidth-1]) [0..imgHeight-1]
+              vec = fromList (Prelude.map (\(x,y) -> let (Codec.PixelRGB8 r g b) = Codec.pixelAt rgbImg x y
+                                                     in rgbToGreyPixel r g b) positions)
+          return $ VectorImage vec imgWidth imgHeight
+     _ -> error "readImgAsVector: unsupported image type."
+
+rgbToGreyPixel :: Word8 -> Word8 -> Word8 -> Int
+rgbToGreyPixel r g b = ceiling $ (0.21::Double) * fromIntegral r + 0.71 * fromIntegral g + 0.07 * fromIntegral b
 
 readImgAsAccelerateArray :: String -> IO (A.Acc AccelerateImage)
 readImgAsAccelerateArray fname = do
-    arr <- readImgAsManifestRepaArray fname
-    return (A.use (fromRepa arr))
-
--- readImgAsRepaManifestArray :: String ->
+  arr <- readImgAsManifestRepaArray fname
+  return (A.use (fromRepa arr))
 
 readImgAsRepaArray :: String -> IO RepaImage
 readImgAsRepaArray fname = do

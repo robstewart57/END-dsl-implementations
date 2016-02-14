@@ -27,6 +27,7 @@ library
                      , repa-devil
                      , directory
                      , deepseq
+                     , JuicyPixels
                      , accelerate
                      , accelerate-io
 --                     , accelerate-llvm-native
