@@ -1,11 +1,11 @@
 
 module Main where
 
-import Prelude hiding ((+),(-))
 import ShallowVector
 import IO
 
 main = do
-    img <- readImgAsVector "../../images/train.png"
-    let newImg = (brightenBy 10 . blurY . blurX) img
-    return () -- TODO time newImg to normal form.
+    img1 <- readImgAsVector "../../images/maisie.png"
+    m <- read <$> getLine
+    newImg <- printTimeDeep ((darkenBy m . brightenBy m) img1)
+    writeVectorImage "../../images/prog3-out-vector.png" newImg

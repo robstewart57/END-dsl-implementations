@@ -5,6 +5,6 @@ import ShallowVector
 import IO
 
 main = do
-    img <- readImgAsVector "../../images/train.png"
-    let newImg = (blurX . blurX) img
-    return () -- TODO time newImg to normal form.
+    img1 <- readImgAsVector "../../images/maisie.png"
+    newImg <- printTimeDeep ((blurX . blurX) img1)
+    writeVectorImage "../../images/prog2-out-vector.png" newImg

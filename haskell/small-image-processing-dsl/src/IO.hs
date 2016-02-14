@@ -24,6 +24,7 @@ import Data.Array.Accelerate.IO
 import qualified Data.Array.Accelerate as A
 import Text.Printf
 import qualified Codec.Picture as Codec
+import Control.DeepSeq
 
 printDiff start end = do
     let diff = (fromIntegral (end - start)) / (10^12)
@@ -46,6 +47,13 @@ printTime :: a -> IO a
 printTime f = do
   start <- getCPUTime
   end <- seq f getCPUTime
+  printDiff start end
+  return f
+
+printTimeDeep :: (NFData a) => a -> IO a
+printTimeDeep f = do
+  start <- getCPUTime
+  end <- deepseq f getCPUTime
   printDiff start end
   return f
 

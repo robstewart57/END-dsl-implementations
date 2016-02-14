@@ -5,8 +5,8 @@ import ShallowVector
 import IO
 
 main = do
-    img <- readImgAsVector "../../images/train.png"
+    img1 <- readImgAsVector "../../images/maisie.png"
     m <- read <$> getLine
     n <- read <$> getLine
-    let newImg = (darkenBy n . brightenBy m) img
-    return () -- TODO time newImg to normal form.
+    newImg <- printTimeDeep ((darkenBy n . brightenBy m) img1)
+    writeVectorImage "../../images/prog4-out-vector.png" newImg
