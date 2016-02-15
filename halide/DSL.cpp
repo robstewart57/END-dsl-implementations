@@ -3,6 +3,7 @@
 using namespace Halide;
 #include "halide_image_io.h"
 using namespace Halide::Tools;
+#include "clock.h"
 
 Func rgb_to_grey(Image<uint8_t> input)
 {
@@ -20,7 +21,12 @@ Func rgb_to_grey(Image<uint8_t> input)
 void imwrite(std::string fname, int width, int height, Func continuation)
 {
   Image<uint8_t> result(width, height, 1);
+
+  double t1 = current_time();
   continuation.realize(result);
+  double t2 = current_time();
+  std::cout << ((t2 - t1) / 1000.0) << "\n";
+
   save_image(result, fname);
 }
 
