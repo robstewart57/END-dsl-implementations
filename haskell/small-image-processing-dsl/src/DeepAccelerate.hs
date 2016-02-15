@@ -6,15 +6,16 @@ import Prelude as P
 import Data.Array.Accelerate -- hiding (fromIntegral,round)
 import qualified Data.Array.Accelerate as A
 import Types
--- import qualified Data.Array.Accelerate.LLVM.PTX as PTX
-import qualified Data.Array.Accelerate.Interpreter as A
+-- import qualified Data.Array.Accelerate.LLVM.PTX as PTX -- GPUs
+-- import qualified Data.Array.Accelerate.Interpreter as A -- reference interpreter
+import qualified Data.Array.Accelerate.LLVM.Native as LLVMCPU
 
 type Stencil3x1 a = (Stencil3 a, Stencil3 a, Stencil3 a)
 type Stencil1x3 a = (Stencil3 a, Stencil3 a, Stencil3 a)
 
 run :: A.Acc AccelerateImage -> AccelerateImage
 -- run = PTX.run
-run = A.run
+run = LLVMCPU.run
 
 blurX :: A.Acc AccelerateImage -> A.Acc AccelerateImage
 blurX = A.map (\(x::Exp Int) -> (A.round (A.fromIntegral x / 4.0 ::Exp Double)) :: Exp Int)

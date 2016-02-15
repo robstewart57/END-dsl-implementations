@@ -29,8 +29,10 @@ library
                      , deepseq
                      , JuicyPixels
                      , accelerate
-                     , accelerate-io
---                     , accelerate-llvm-native
+                     , accelerate-io >= 0.15.1.0
+                     , accelerate-llvm-native
+--                     , llvm-general >= 3.5.1.2
+                     , llvm-general
   ghc-options:         -Odph -rtsopts -threaded -fno-liberate-case -funfolding-use-threshold1000 -funfolding-keeness-factor1000 -fllvm -optlo-O3
   default-language:    Haskell2010
 
