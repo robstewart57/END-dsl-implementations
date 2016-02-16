@@ -8,7 +8,7 @@ import Text.Printf
 
 main = do
     args <- getArgs
-    let [inImg,outImg,_] = args
+    let [inImg,outImg] = args
     img <- readImgAsRepaArray inImg
     newImg <- printTimeIO $ run ((brightenBy 30 . blurY . blurX) img)
     writeRepaImg outImg newImg

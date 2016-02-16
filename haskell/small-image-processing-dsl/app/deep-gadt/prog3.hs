@@ -8,7 +8,7 @@ import IO
 
 main = do
     args <- getArgs
-    let [inImg,outImg,_] = args
+    let [inImg,outImg] = args
     m <- read <$> getLine
     img1 <- readImgAsVector inImg
     newImg <- printTime (run ((integer m) - ((integer m) + (image img1))))

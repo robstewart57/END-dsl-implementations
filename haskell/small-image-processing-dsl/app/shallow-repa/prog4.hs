@@ -8,7 +8,7 @@ import Text.Printf
 
 main = do
     args <- getArgs
-    let [inImg,outImg,_] = args
+    let [inImg,outImg] = args
     img <- readImgAsRepaArray inImg
     m <- read <$> getLine
     n <- read <$> getLine

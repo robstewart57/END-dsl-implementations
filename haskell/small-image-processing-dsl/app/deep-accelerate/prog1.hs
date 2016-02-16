@@ -7,7 +7,7 @@ import IO
 
 main = do
     args <- getArgs
-    let [inImg,outImg,_] = args
+    let [inImg,outImg] = args
     img1 <- readImgAsAccelerateArray inImg
     newImg <- printTime (run (brightenBy 20 img1))
     writeAccelerateImg outImg newImg
