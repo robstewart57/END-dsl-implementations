@@ -1,10 +1,13 @@
 
 module Main where
 
+import System.Environment
 import ShallowVector
 import IO
 
 main = do
-    img1 <- readImgAsVector "../../images/maisie.png"
+    args <- getArgs
+    let [inImg,outImg,_] = args
+    img1 <- readImgAsVector inImg
     newImg <- printTimeDeep (brightenBy 20 img1)
-    writeVectorImage "../../images/prog1-out-vector.png" newImg
+    writeVectorImage outImg newImg

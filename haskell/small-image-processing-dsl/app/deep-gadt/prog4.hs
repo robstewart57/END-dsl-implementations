@@ -2,12 +2,15 @@
 module Main where
 
 import Prelude hiding ((+),(-))
+import System.Environment
 import DeepGADT
 import IO
 
 main = do
-    img <- readImgAsVector "../../images/maisie.png"
+    args <- getArgs
+    let [inImg,outImg,_] = args
     m <- read <$> getLine
---    let newImg = run $ darkenBy (int m) (brightenBy (int m) (image img))
-    let newImg = run $ (image img + integer m) - integer m
-    return () -- TODO time newImg to normal form.
+    n <- read <$> getLine
+    img1 <- readImgAsVector inImg
+    newImg <- printTime (run ((integer n) - ((integer m) + (image img1))))
+    writeVectorImage outImg newImg

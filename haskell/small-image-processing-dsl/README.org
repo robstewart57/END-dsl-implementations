@@ -1,0 +1,9 @@
+
+* Compiling
+
+To compile without the LLVM native backend for the deeply embedded
+Accelerate programs, do:
+
+#+BEGIN_SRC sh
+$ stack install --flag small-image-processing-dsl:disablellvm
+#+END_SRC

@@ -1,10 +1,14 @@
 
 module Main where
 
+import Prelude hiding ((+))
+import System.Environment
 import DeepGADT
 import IO
 
 main = do
-    img <- readImgAsVector "../../images/train.png"
-    let newImg = run (BlurX (ConImage img))
-    return () -- TODO time evaluation of newImg to normal form.
+    args <- getArgs
+    let [inImg,outImg,_] = args
+    img1 <- readImgAsVector inImg
+    newImg <- printTime (run ((integer 20) + (image img1)))
+    writeVectorImage outImg newImg

@@ -1,11 +1,14 @@
 
 module Main where
 
+import System.Environment
 import ShallowRepa
 import IO
 import Text.Printf
 
 main = do
-    img <- readImgAsRepaArray "../../images/maisie.png"
+    args <- getArgs
+    let [inImg,outImg,_] = args
+    img <- readImgAsRepaArray inImg
     newImg <- printTimeIO $ run ((blurX . blurX) img)
-    writeRepaImg "../../images/prog2-out-repa.png" newImg
+    writeRepaImg outImg newImg
