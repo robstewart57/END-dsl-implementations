@@ -69,11 +69,12 @@ readImgAsVector fname = do
     (Right !img) <- Codec.readImage fname
     case img of
      Codec.ImageRGB8 rgbImg -> do
-          let Codec.Image imgWidth imgHeight _ = rgbImg
+          let Codec.Image !imgWidth !imgHeight _ = rgbImg
               positions = Prelude.concatMap (\h -> Prelude.map (\w -> (w,h)) [0..imgWidth-1]) [0..imgHeight-1]
-              vec = fromList (Prelude.map (\(x,y) -> let (Codec.PixelRGB8 r g b) = Codec.pixelAt rgbImg x y
-                                                     in rgbToGreyPixel r g b) positions)
-          return $ VectorImage vec imgWidth imgHeight
+              !vec = fromList (Prelude.map (\(x,y) -> let (Codec.PixelRGB8 r g b) = Codec.pixelAt rgbImg x y
+                                                      in rgbToGreyPixel r g b) positions)
+              img = deepseq vec (VectorImage vec imgWidth imgHeight)
+          return img
      _ -> error "readImgAsVector: unsupported image type."
 
 rgbToGreyPixel :: Word8 -> Word8 -> Word8 -> Int

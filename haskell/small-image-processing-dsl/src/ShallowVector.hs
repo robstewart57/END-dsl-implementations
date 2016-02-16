@@ -4,6 +4,9 @@ module ShallowVector where
 import qualified Data.Vector as V
 import Types
 
+{-# RULES "darkenBy.brightenBy" forall im1 n. darkenBy n (brightenBy n im1) = im1 #-}
+{-# RULES "brightenBy.darkenBy" forall im1 n. brightenBy n (darkenBy n im1) = im1 #-}
+
 -- TODO: overload + and - to be brightenBy and darkenBy
 
 blurX, blurY :: VectorImage -> VectorImage
@@ -54,7 +57,8 @@ rgbAt  RightOf vec idx = vec V.! (idx+1)
 rgbAt  Above vec idx = undefined
 rgbAt  Below vec idx = undefined
 
-
+{-# NOINLINE brightenBy #-}
+{-# NOINLINE darkenBy #-}
 brightenBy,darkenBy :: Int -> VectorImage -> VectorImage
 brightenBy i (VectorImage pixels w h) = VectorImage (V.map ((+1)) pixels) w h
 darkenBy   i (VectorImage pixels w h) = VectorImage (V.map ((\x -> x-1)) pixels) w h
