@@ -25,35 +25,37 @@ import qualified Data.Array.Accelerate as A
 import Text.Printf
 import qualified Codec.Picture as Codec
 import Control.DeepSeq
+import Data.Time.Clock
 
+
+printDiff :: UTCTime -> UTCTime -> IO ()
 printDiff start end = do
-    let diff = (fromIntegral (end - start)) / (10^12)
-    printf "%0.3f\n" (diff :: Double)
+  print (realToFrac (diffUTCTime end start) :: Double)
 
 -- | time monadic computation.
 printTimeIO :: IO a -> IO a
 printTimeIO action = do
-  start <- getCPUTime
+  start <- getCurrentTime
   a <- action
-  end   <- getCPUTime
+  end   <- getCurrentTime
   printDiff start end
   return a
 
 -- see about the following benchmark
 -- https://github.com/AccelerateHS/accelerate/issues/208
 
--- | time evaluation of pure computation.
+-- | time evaluation of pure computation, in picoseconds.
 printTime :: a -> IO a
 printTime f = do
-  start <- getCPUTime
-  end <- seq f getCPUTime
+  start <- getCurrentTime
+  end <- seq f getCurrentTime
   printDiff start end
   return f
 
 printTimeDeep :: (NFData a) => a -> IO a
 printTimeDeep f = do
-  start <- getCPUTime
-  end <- deepseq f getCPUTime
+  start <- getCurrentTime
+  end <- deepseq f getCurrentTime
   printDiff start end
   return f
 
