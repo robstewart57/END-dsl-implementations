@@ -34,32 +34,32 @@ Func blurX(Func continuation)
 {
   Var x("x"), y("y"), c("c");
   Func input_16("input_16");
-  input_16(x, y, c) = cast<uint16_t>(continuation(x, y, c));
+  //  input_16(x, y, c) = cast<uint16_t>(continuation(x, y, c));
   Func blur_x("blur_x");
-  blur_x(x, y, c) = (input_16(x-1, y, c) +
-                     2 * input_16(x, y, c) +
-                     input_16(x+1, y, c)) / 4;
+  blur_x(x, y, c) = (continuation(x-1, y, c) +
+                     2 * continuation(x, y, c) +
+                     continuation(x+1, y, c)) / 4;
   blur_x.vectorize(x, 8).parallel(y);
   blur_x.compute_root();
-  Func output("outputBlurX");
-  output(x, y, c) = cast<uint8_t>(blur_x(x, y, c));
-  return output;
+  // Func output("outputBlurX");
+  // output(x, y, c) = cast<uint8_t>(blur_x(x, y, c));
+  return blur_x;
 }
 
 Func blurY(Func continuation)
 {
   Var x("x"), y("y"), c("c");
   Func input_16("input_16");
-  input_16(x, y, c) = cast<uint16_t>(continuation(x, y, c));
+  //input_16(x, y, c) = cast<uint16_t>(continuation(x, y, c));
   Func blur_y("blur_y");
-  blur_y(x, y, c) = (input_16(x, y-1, c) +
-                     2 * input_16(x, y, c) +
-                     input_16(x, y+1, c)) / 4;
+  blur_y(x, y, c) = (continuation(x, y-1, c) +
+                     2 * continuation(x, y, c) +
+                     continuation(x, y+1, c)) / 4;
   blur_y.vectorize(y, 8).parallel(x);
   blur_y.compute_root();
   Func output("outputBlurY");
-  output(x, y, c) = cast<uint8_t>(blur_y(x, y, c));
-  return output;
+  // output(x, y, c) = cast<uint8_t>(blur_y(x, y, c));
+  return blur_y;
 }
 
 Func brightenBy(int brightenByVal, Func continuation)
