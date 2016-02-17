@@ -1,0 +1,113 @@
+module END;
+
+use Array: all except { sel } ;
+use StdIO: all;
+use String: { string };
+use PNG: {readPNG,writePNG, showPNG};
+use Color8: { color , sel };
+
+export all;
+
+use RTClock: {gettime};
+
+int[*], double timestamp( int[*] img)
+{
+  s, ns = gettime();
+  return( img, tod( s) + tod( ns) * 0.000000001d);
+}
+
+double difftime( double e, double s)
+{
+  return( e - s);
+}
+
+// just make + the operator in the programs?
+int[.,.] brightenBy(int[.,.] img, int i)
+{
+  return img + i;
+}
+
+// same for darkenBy.. - ?
+int[.,.] darkenBy(int[.,.] img, int i)
+{
+  return img - i;
+}
+
+inline
+int[.,.] blurX(int[.,.] img)
+{
+  return (shiftRight( 0, img[0], img) + img + shiftLeft( 0, img[9], img)) / 3;
+}
+
+int[.,.] blurY(int[.,.] img)
+{
+  return transpose ( blurX ( transpose ( img ) ) ) ;
+}
+
+void imwrite( string fname, int[.,.] img)
+{
+  colorImg = greyToColor(img);
+  // showPNG(colorImg);
+  writePNG(fname, colorImg);
+}
+
+int[.,.] imread( string fname)
+{
+  rgbImg = readPNG(fname);
+  return togreyscale(rgbImg);
+}
+
+inline
+color[.,.] greyToColor( int[.,.] a)
+{
+        res = with {
+                ( . <= iv <= .): (color)[Array::sel(iv, a), Array::sel(iv, a), Array::sel(iv, a)];
+        } : genarray( Array::shape( a), (color)[0,0,0]);
+        return res;
+}
+
+/* inline */
+/* color default_el( color[*] a) */
+/* { */
+/*         return (color)[0,0,0]; */
+/* } */
+
+/* inline */
+/* int default_el( int[*] a) */
+/* { */
+/*   return (int) 0; */
+/* } */
+
+int[.,.] togreyscale( Color8::color[.,.] img)
+{
+  img_i = Color8::toi( img);
+  img_g = with {
+  ( . <= iv <= .) :
+  toi ( (tod( (int) Array::sel( [0], Array::sel( iv, img_i))) * 0.3)
+        + (tod ((int) Array::sel( [1], Array::sel( iv, img_i))) * 0.59)
+        + (tod( (int) Array::sel( [2], Array::sel( iv, img_i))) * 0.11) ) ;
+  } : genarray( Color8::shape( img), 0);
+  return img_g;
+}
+
+inline
+int[.,.] shiftRight( int dimension, int[*] hyperplane, int[.,.] array)
+{
+  dim_cut = modarray( 0*shape(array), dimension, 1);
+  res = with {
+         (0*shape( array) <= iv < dim_cut) : hyperplane[drop([dimension+1], iv)];
+         (dim_cut <= iv < shape(array) ) : array[modarray( iv, dimension, iv[dimension]-1)];
+        } : modarray( array);
+  return res;
+}
+
+inline
+int[*] shiftLeft( int dimension, int[*] hyperplane, int[*] array)
+{
+  dim_cut = modarray( shape(array), dimension, shape(array)[dimension]-1);
+  res = with {
+         (0*shape( array) <= iv < dim_cut) : array[modarray( iv, dimension, iv[dimension]+1)];
+         (dim_cut <= iv < shape(array) ) : hyperplane[drop([dimension+1], iv)];
+        } : modarray( array);
+  return res;
+}

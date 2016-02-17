@@ -12,3 +12,7 @@ prog5
 *#
 dist/
 *.hi
+*.c
+a.out
+sac/host/
+sac/tree/
