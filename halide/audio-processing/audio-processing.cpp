@@ -1,73 +1,41 @@
 #include "MidiFile.h"
 #include "MidiEvent.h"
 #include "Options.h"
-#include <iostream>
-#include <iomanip>
-#include <sstream>
-#include <iostream>
-
-#include <iostream>
 #include "Halide.h"
 using namespace Halide;
 #include "halide_image_io.h"
 using namespace Halide::Tools;
 
-#include <iomanip>
-#include <iostream>
-#include <random>
-#include <string>
-#include "Halide.h"
-
-Func unflattenE(Func continuation)
+Func noFlats(Func music)
 {
-  Func noFlat("noFlat");
   Var x, y, c;
-  Expr value = continuation(x, y, c);
+  Expr value = music(x, y, c);
+
+  // E flat's to E's
   value = select ( 38 == value , 39 , value );
   value = select ( 50 == value , 51 , value );
   value = select ( 74 == value , 75 , value );
   value = select ( 86 == value , 87 , value );
-  noFlat(x, y, c) = value;
-  return noFlat;
-}
 
-Func unflattenB(Func continuation)
-{
-  Func noFlat("noFlat");
-  Var x, y, c;
-  Expr value = continuation(x, y, c);
+  // B flat's to B's
   value = select ( 33 == value , 34 , value );
   value = select ( 45 == value , 46 , value );
   value = select ( 57 == value , 58 , value );
   value = select ( 69 == value , 70 , value );
   value = select ( 81 == value , 82 , value );
-  noFlat(x, y, c) = value;
-  return noFlat;
-}
 
-Func unflattenA(Func continuation)
-{
-  Func noFlat("noFlat");
-  Var x, y, c;
-  Expr value = continuation(x, y, c);
-  print(value);
+  // A flat's to A's
   value = select ( 31 == value , 32 , value );
   value = select ( 43 == value , 44 , value );
   value = select ( 55 == value , 56 , value );
   value = select ( 67 == value , 68 , value );
   value = select ( 79 == value , 80 , value );
-  noFlat(x, y, c) = value;
-  return noFlat;
-}
 
-Func noFlats(Func music)
-{
   Func noFlats("noFlats");
-  Var x, y, c;
-  Func noEFlat = unflattenE(music);
-  Func noBFlat = unflattenB(noEFlat);
-  Func noAFlat = unflattenA(noBFlat);
-  return noAFlat;
+  noFlats(x, y, c) = value;
+  noFlats.vectorize(x, get_target_from_environment().natural_vector_size<uint16_t>());
+  noFlats.compute_root();
+  return noFlats;
 }
 
 int main(int argc, char** argv)
@@ -112,15 +80,13 @@ int main(int argc, char** argv)
 
   buffer_t image_buffer =  *(newImg.raw_buffer());
 
-
   for (int event=0; event < events; event++)
     {
       MidiEvent midiEvent = midifile[0][event];
       midiEvent[1] = image_buffer.host[event];
-      printf("was: %i, now: %i\n", midiEvent[1], image_buffer.host[event]);
       outputfile.addEvent(1, midiEvent.tick, midiEvent);
-
     }
 
-   outputfile.write("happy.mid"); // write Standard MIDI File twinkle.mid
+  // write to a MIDI file the more spiriting version.
+   outputfile.write("happy.mid");
  }

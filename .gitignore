@@ -16,3 +16,4 @@ dist/
 a.out
 sac/host/
 sac/tree/
+*.mid

@@ -1,0 +1,32 @@
+
+* This program
+
+This audio-processing.cpp program demonstrates that the Halide image
+processing DSL can be used for processing other domain data, and not
+just images.
+
+To compile, you'll nee Halide installed and also the midifile C++
+library from https://github.com/craigsapp/midifile. Then
+
+#+BEGIN_SRC
+HALIDE_HOME=/home/you/place/Halide/ MIDIFILE_HOME=/home/you/place/midifile make
+#+END_SRC
+
+Then to run:
+
+#+BEGIN_SRC
+LD_LIBRARY_PATH=/home/you/place/Halide/bin/ ./a.out pathetique_3_format0-c-minor.mid
+#+END_SRC
+
+The music is in C minor. This will generated a happy.midi file, in the
+parallel major key C major, i.e. E flats become E, B flats become B
+and A flats become A.
+
+* Attribution
+
+The pathetique_3_format0-c-minor.mid file is a CC licensed MIDI audio file.
+
+Ludwig van Beethoven Sonata No. 8 in C minor "Pathetique". Movement By
+Bernd Krueger is licensed under CC BY 3.0
+- URL: http://www.piano-midi.de/beeth.htm
+- License: http://creativecommons.org/licenses/by/3.0/
