@@ -39,7 +39,7 @@ Func blurX(Func continuation)
   blur_x(x, y, c) = (continuation(x-1, y, c) +
                      2 * continuation(x, y, c) +
                      continuation(x+1, y, c)) / 4;
-  blur_x.vectorize(x, 8).parallel(y);
+  blur_x.vectorize(x, get_target_from_environment().natural_vector_size<uint16_t>()).parallel(y);
   blur_x.compute_root();
   // Func output("outputBlurX");
   // output(x, y, c) = cast<uint8_t>(blur_x(x, y, c));
@@ -55,7 +55,7 @@ Func blurY(Func continuation)
   blur_y(x, y, c) = (continuation(x, y-1, c) +
                      2 * continuation(x, y, c) +
                      continuation(x, y+1, c)) / 4;
-  blur_y.vectorize(y, 8).parallel(x);
+  blur_y.vectorize(y, get_target_from_environment().natural_vector_size<uint16_t>()).parallel(x);
   blur_y.compute_root();
   Func output("outputBlurY");
   // output(x, y, c) = cast<uint8_t>(blur_y(x, y, c));
@@ -72,7 +72,7 @@ Func brightenBy(int brightenByVal, Func continuation)
   value = Halide::min(value, 255.0f);
   value = Halide::cast<uint8_t>(value);
   brighten(x, y, c) = value;
-  brighten.vectorize(x, 8).parallel(y);
+  brighten.vectorize(x, get_target_from_environment().natural_vector_size<uint16_t>()).parallel(y);
   brighten.compute_root();
   return brighten;
 }
@@ -86,7 +86,7 @@ Func darkenBy(int darkenByVal, Func continuation)
   value = value - darkenByVal;
   value = Halide::cast<uint8_t>(value);
   darken(x, y, c) = value;
-  darken.vectorize(x, 8).parallel(y);
+  darken.vectorize(x, get_target_from_environment().natural_vector_size<uint16_t>()).parallel(y);
   darken.compute_root();
   return darken;
 }
