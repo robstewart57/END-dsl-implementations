@@ -3,16 +3,15 @@ use Array: all ;
 use StdIO: all;
 use String: {string};
 
-// Use a Makefile for these programs, using:
-// SAC2C = sac2c -t mt_pth
-
 int main()
 {
   img1 = imread("../images/maisie.png");
   img1, start = timestamp( img1);
-  img2 = brightenBy(img1, 100);
-  img2, end = timestamp( img2);
+  img2 = blurX(img1);
+  img3 = blurY(img2);
+  img4 = brightenBy(img3, 30);
+  img4, end = timestamp( img4);
   printf("%f\n", difftime( end, start));
-  a = imwrite("../images/prog1-out-sac.png", img2);
+  a = imwrite("../images/prog5-out-sac.png", img4);
   return a;
 }
