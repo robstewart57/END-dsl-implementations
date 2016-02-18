@@ -84,6 +84,7 @@ Func darkenBy(int darkenByVal, Func continuation)
   Expr value = continuation(x, y, c);
   value = Halide::cast<float>(value);
   value = value - darkenByVal;
+  value = Halide::max(value, 0.0f);
   value = Halide::cast<uint8_t>(value);
   darken(x, y, c) = value;
   darken.vectorize(x, get_target_from_environment().natural_vector_size<uint16_t>()).parallel(y);
