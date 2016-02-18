@@ -9,9 +9,9 @@ use String: {string};
 int main()
 {
   img = imread("../images/maisie.png");
-  img, start = timestamp( img);
-  img, end = timestamp( img);
-  printf("%f\n", difftime( end, start));
-  /* imwrite("out.png", img); */
-  return 0;
+  /* img, start = timestamp( img); */
+  /* img, end = timestamp( img); */
+  /* printf("%f\n", difftime( end, start)); */
+  a = imwrite("out.png", img);
+  return a;
 }

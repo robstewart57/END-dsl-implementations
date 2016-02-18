@@ -2,6 +2,7 @@ module END;
 
 use Array: all except { sel } ;
 use StdIO: all;
+use SimpleImage: all;
 use String: { string };
 use PNG: {readPNG,writePNG, showPNG};
 use Color8: { color , sel };
@@ -44,11 +45,13 @@ int[.,.] blurY(int[.,.] img)
   return transpose ( blurX ( transpose ( img ) ) ) ;
 }
 
-void imwrite( string fname, int[.,.] img)
+int imwrite( string fname, int[.,.] img)
 {
   colorImg = greyToColor(img);
   // showPNG(colorImg);
-  writePNG(fname, colorImg);
+  print ( Color8::shape(colorImg) ) ;
+  // writePNG(fname, colorImg);
+  return imshow(colorImg);
 }
 
 int[.,.] imread( string fname)
