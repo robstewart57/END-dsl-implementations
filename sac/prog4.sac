@@ -6,9 +6,9 @@ use String: {string};
 int main()
 {
   img1 = imread("../images/Creative-Commons-Infographic.png");
-  img1, start = timestamp( img1);
   m = getLine();
   n = getLine();
+  img1, start = timestamp( img1);
   img2 = brightenBy(img1, m);
   img3 = darkenBy(img2, n);
   img3, end = timestamp( img3);
