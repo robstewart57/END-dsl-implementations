@@ -30,7 +30,6 @@ import Data.Time.Clock
 
 printDiff :: UTCTime -> UTCTime -> IO ()
 printDiff start end = do
---  print (realToFrac (diffUTCTime end start) :: Double)
   let s = show (diffUTCTime end start)
   putStrLn (Prelude.init s) -- drops the "s" from the end
 
@@ -43,7 +42,7 @@ printTimeIO action = do
   printDiff start end
   return a
 
--- see about the following benchmark
+-- see about `seq` in the following benchmark
 -- https://github.com/AccelerateHS/accelerate/issues/208
 
 -- | time evaluation of pure computation, in picoseconds.
