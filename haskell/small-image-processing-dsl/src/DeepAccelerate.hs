@@ -43,5 +43,5 @@ convolve3x1 kernel (_, (a,b,c), _)
 brightenBy, darkenBy :: Int
                      -> A.Acc AccelerateImage
                      -> A.Acc AccelerateImage
-brightenBy i = A.map (+(A.lift i))
-darkenBy   i = A.map (\x -> x-(A.lift i))
+brightenBy i = A.map (\x -> min 255 (x + (A.lift i)))
+darkenBy   i = A.map (\x -> max 0   (x - (A.lift i)))

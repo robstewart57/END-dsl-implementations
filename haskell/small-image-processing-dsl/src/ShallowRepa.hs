@@ -36,8 +36,9 @@ blurY img =
 {-# NOINLINE blurY #-}
 
 brightenBy,darkenBy :: Int -> Array D (Z :. Int :. Int) Int -> Array D ((Z :. Int) :. Int) Int
-brightenBy i = R.map (+i)
+
+brightenBy i = R.map (\x -> min 255 (x+i))
 {-# NOINLINE brightenBy #-}
 
-darkenBy   i = R.map (\x -> x-i)
+darkenBy   i = R.map (\x -> max 0 (x-i))
 {-# NOINLINE darkenBy #-}
