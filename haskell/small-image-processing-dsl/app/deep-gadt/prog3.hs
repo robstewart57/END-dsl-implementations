@@ -11,5 +11,5 @@ main = do
     let [inImg,outImg] = args
     m <- read <$> getLine
     img1 <- readImgAsVector inImg
-    newImg <- printTime (run ((integer m) - ((integer m) + (image img1))))
+    newImg <- printTimeDeep (run ((integer m) - ((integer m) + (image img1))))
     writeVectorImage outImg newImg

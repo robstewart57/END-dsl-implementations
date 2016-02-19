@@ -10,5 +10,5 @@ main = do
     args <- getArgs
     let [inImg,outImg] = args
     img1 <- readImgAsVector inImg
-    newImg <- printTime (run ((integer 30) + (blurY (blurX (image img1)))))
+    newImg <- printTimeDeep (run ((integer 30) + (blurY (blurX (image img1)))))
     writeVectorImage outImg newImg

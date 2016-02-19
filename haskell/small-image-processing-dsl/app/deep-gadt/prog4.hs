@@ -12,5 +12,5 @@ main = do
     m <- read <$> getLine
     n <- read <$> getLine
     img1 <- readImgAsVector inImg
-    newImg <- printTime (run ((integer n) - ((integer m) + (image img1))))
+    newImg <- printTimeDeep (run ((integer n) - ((integer m) + (image img1))))
     writeVectorImage outImg newImg
