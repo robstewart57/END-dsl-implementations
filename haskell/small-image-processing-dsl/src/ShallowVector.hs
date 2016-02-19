@@ -18,36 +18,39 @@ blurY :: VectorImage -> VectorImage
 blurY (VectorImage pixels w h) = VectorImage newPixels w h
     where
       newPixels = V.imap blurPixel pixels
+      normalise x = round (fromIntegral x / 4.0)
       blurPixel i p
          -- bottom of a column
          | (i+1) `mod` h == 0 =
-             round ((fromIntegral ((pixels V.! (i-1)) + p*2 + p) ::Double) / 4.0)
+             normalise ((pixels V.! (i-1)) + p*2 + p)
 
          -- top of a column
          | i `mod` h == 0 =
-             round ((fromIntegral (p + p*2 + (pixels V.! (i+1))) ::Double) / 4.0)
+             normalise (p + p*2 + (pixels V.! (i+1)))
 
          -- somewhere in between
          | otherwise =
-             round ((fromIntegral ((pixels V.! (i-1)) + p*2 + (pixels V.! (i+1))) ::Double) / 4.0)
+             normalise (pixels V.! (i-1) + p*2 + (pixels V.! (i+1)))
+
 
 {-# INLINE blurX #-}
 blurX :: VectorImage -> VectorImage
 blurX (VectorImage pixels w h) = VectorImage newPixels w h
     where
       newPixels = V.imap blurPixel pixels
+      normalise x = round (fromIntegral x / 4.0)
       blurPixel i p
          -- right end of a row
          | (i+1) `mod` w == 0 =
-             round ((fromIntegral ((pixels V.! (i-1)) + p*2 + p) ::Double) / 4.0)
+             normalise ((pixels V.! (i-1)) + p*2 + p)
 
          -- left start to a row
          | i `mod` w == 0 =
-             round ((fromIntegral (p + p*2 + (pixels V.! (i+1))) ::Double) / 4.0)
+             normalise (p + p*2 + (pixels V.! (i+1)))
 
          -- somewhere in between
          | otherwise =
-             round ((fromIntegral ((pixels V.! (i-1)) + p*2 + (pixels V.! (i+1))) ::Double) / 4.0)
+             normalise (pixels V.! (i-1) + p*2 + (pixels V.! (i+1)))
 
 
 -- don't inline, so they can be eliminated with the rewrite rule at the top.
