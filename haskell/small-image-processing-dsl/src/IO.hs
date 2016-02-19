@@ -30,7 +30,9 @@ import Data.Time.Clock
 
 printDiff :: UTCTime -> UTCTime -> IO ()
 printDiff start end = do
-  print (realToFrac (diffUTCTime end start) :: Double)
+--  print (realToFrac (diffUTCTime end start) :: Double)
+  let s = show (diffUTCTime end start)
+  putStrLn (Prelude.init s) -- drops the "s" from the end
 
 -- | time monadic computation.
 printTimeIO :: IO a -> IO a
@@ -83,7 +85,8 @@ rgbToGreyPixel r g b = ceiling $ (0.21::Double) * fromIntegral r + 0.71 * fromIn
 readImgAsAccelerateArray :: String -> IO (A.Acc AccelerateImage)
 readImgAsAccelerateArray fname = do
   arr <- readImgAsManifestRepaArray fname
-  return (A.use (fromRepa arr))
+  let accImg = seq (A.use (fromRepa arr)) (A.use (fromRepa arr))
+  return (accImg)
 
 readImgAsRepaArray :: String -> IO RepaImage
 readImgAsRepaArray fname = do
@@ -120,7 +123,7 @@ removeIfExists fileName = removeFile fileName `catch` handleExists
           | otherwise = throwIO e
 
 luminosity :: (DIM3 -> Word8) -> DIM2 -> Int
-luminosity f (Z :. i :. j) = ceiling $ (0.21::Double) * r + 0.71 * g + 0.07 * b
+luminosity f (Z :. i :. j) = round $ (0.21::Double) * r + 0.71 * g + 0.07 * b
     where
         r = fromIntegral $ f (Z :. i :. j :. 0)
         g = fromIntegral $ f (Z :. i :. j :. 1)
