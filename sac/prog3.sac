@@ -5,11 +5,12 @@ use String: {string};
 
 int main()
 {
-  img1 = imread("../images/maisie.png");
-  img1, start = timestamp( img1);
+  img1 = imread("../images/Creative-Commons-Infographic.png");
   m = getLine();
+  img1, start = timestamp( img1);
   img2 = brightenBy(img1, m);
   img3 = darkenBy(img2, m);
+  img3 = img2;
   img3, end = timestamp( img3);
   printf("%f\n", difftime( end, start));
   a = imwrite("../images/prog3-out-sac.png", img3);
