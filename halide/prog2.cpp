@@ -12,12 +12,9 @@ int main()
 {
   Var x("x"), y("y"), c("c");
 
-  Image<uint8_t> input = load_image("../images/maisie.png");
-  Func inputImg("inputImg");
-  inputImg = rgb_to_grey(input);
-
+  Image<uint8_t> input = load_image("../images/Creative-Commons-Infographic.png");
   Func img1Fun("img1Fun");
-  img1Fun(x, y, c) = cast<uint16_t>(inputImg(x, y, c));
+  img1Fun = rgb_to_grey(input);
 
   /* blur the image */
   Func img2Fun = blurX(img1Fun);
@@ -25,11 +22,7 @@ int main()
   /* blur again */
   Func img3Fun = blurX(img2Fun);
 
-  /* cast back down to a uint8 image */
-  Func outputFun("outputFun");
-  outputFun(x, y, c) = cast<uint8_t>(img3Fun(x, y, c));
-
-  imwrite("../images/prog2-out-halide.png",input.width(),input.height(), outputFun);
+  imwrite("../images/prog2-out-halide.png",input.width(),input.height(), img3Fun);
 
   return 0;
 }

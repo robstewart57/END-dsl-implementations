@@ -14,22 +14,15 @@ int main()
 {
   Var x("x"), y("y"), c("c");
 
-  Image<uint8_t> input = load_image("../images/maisie.png");
-  Func inputImg("inputImg");
-  inputImg = rgb_to_grey(input);
-
+  Image<uint8_t> input = load_image("../images/Creative-Commons-Infographic.png");
   Func img1Fun("img1Fun");
-  img1Fun(x, y, c) = cast<uint16_t>(inputImg(x, y, c));
+  img1Fun = rgb_to_grey(input);
 
   Func img2Fun = blurX(img1Fun);
   Func img3Fun = blurY(img2Fun);
   Func img4Fun = brightenBy(30, img3Fun);
 
-  /* cast back down to a uint8 image */
-  Func outputFun("outputFun");
-  outputFun(x, y, c) = cast<uint8_t>(img4Fun(x, y, c));
-
-  imwrite("../images/prog5-out-halide.png",input.width(),input.height(), outputFun);
+  imwrite("../images/prog5-out-halide.png",input.width(),input.height(), img4Fun);
 
   return 0;
 }
