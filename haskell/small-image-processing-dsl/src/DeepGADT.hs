@@ -4,7 +4,7 @@ module DeepGADT where
 
 import Prelude hiding ((+),(-))
 import qualified Prelude as Prelude
-import qualified Data.Vector as V
+import qualified Data.Vector.Unboxed as V
 import Types
 
 data Exp a where

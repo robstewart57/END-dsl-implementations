@@ -6,8 +6,8 @@ module IO where
 
 -- import Data.Array
 import Prelude hiding (traverse)
-import Data.Vector hiding (force)
-import qualified Data.Vector as V
+import Data.Vector.Unboxed hiding (force)
+import qualified Data.Vector.Unboxed as V
 import Data.Array.Repa
 import Types
 import System.CPUTime

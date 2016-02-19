@@ -1,64 +1,42 @@
 
 module ShallowVector where
 
-import qualified Data.Vector as V
+import qualified Data.Vector.Unboxed as V
 import Types
+import Debug.Trace
 
 {-# RULES "darkenBy.brightenBy" forall im1 n. darkenBy n (brightenBy n im1) = im1 #-}
 {-# RULES "brightenBy.darkenBy" forall im1 n. brightenBy n (darkenBy n im1) = im1 #-}
 
 -- TODO: overload + and - to be brightenBy and darkenBy
 
-blurX, blurY :: VectorImage -> VectorImage
-blurX img@(VectorImage pixels w h) = VectorImage (V.imap blurAtPosition pixels) w h
+-- inline the blur functions so that they can be fused when used together,
+-- using the fusion optimisations in the vector library.
+
+blurY = undefined
+
+{-# INLINE blurX #-}
+blurX (VectorImage pixels w h) = VectorImage newPixels w h
     where
-      blurAtPosition idx p
-          | leftEdgePixel  img idx =
-              blur p
-                   p
-                   (rgbAt LeftOf pixels idx)
-          | rightEdgePixel img idx =
-              blur p
-                   (rgbAt RightOf pixels idx)
-                   p
-          | otherwise =
-              blur p
-                   (rgbAt LeftOf pixels idx)
-                   (rgbAt RightOf pixels idx)
+      newPixels = V.imap blurPixel pixels
+      blurPixel i p
+         -- right end of a row
+         | (i+1) `mod` w == 0 =
+             round ((fromIntegral ((pixels V.! (i-1)) + p*2 + p) ::Double) / 4.0)
 
-blurY img@(VectorImage pixels w h) = VectorImage (V.imap blurAtPosition pixels) w h
-    where
-      blurAtPosition idx p
-          | topEdgePixel  img idx =
-              blur p
-                   p
-                   (rgbAt Below pixels idx)
-          | bottomEdgePixel img idx =
-              blur p
-                   (rgbAt Above pixels idx)
-                   p
-          | otherwise =
-              blur p
-                   (rgbAt Above pixels idx)
-                   (rgbAt Below pixels idx)
+         -- left start to a row
+         | i `mod` w == 0 =
+             round ((fromIntegral (p + p*2 + (pixels V.! (i+1))) ::Double) / 4.0)
 
-blur :: Int -> Int -> Int -> Int
-blur = undefined
+         -- somewhere in between
+         | otherwise =
+             round ((fromIntegral ((pixels V.! (i-1)) + p*2 + (pixels V.! (i+1))) ::Double) / 4.0)
 
-leftEdgePixel, rightEdgePixel, topEdgePixel, bottomEdgePixel :: VectorImage -> Int -> Bool
-leftEdgePixel   = undefined
-rightEdgePixel  = undefined
-topEdgePixel    = undefined
-bottomEdgePixel = undefined
 
-rgbAt :: RelativePosition -> V.Vector Int -> Int -> Int
-rgbAt  LeftOf vec idx  = vec V.! (idx-1)
-rgbAt  RightOf vec idx = vec V.! (idx+1)
-rgbAt  Above vec idx = undefined
-rgbAt  Below vec idx = undefined
+-- don't inline, so they can be eliminated with the rewrite rule at the top.
 
 {-# NOINLINE brightenBy #-}
 {-# NOINLINE darkenBy #-}
 brightenBy,darkenBy :: Int -> VectorImage -> VectorImage
-brightenBy i (VectorImage pixels w h) = VectorImage (V.map ((+1)) pixels) w h
-darkenBy   i (VectorImage pixels w h) = VectorImage (V.map ((\x -> x-1)) pixels) w h
+brightenBy i (VectorImage pixels w h) = VectorImage (V.map ((\x -> min 255 (x+1))) pixels) w h
+darkenBy   i (VectorImage pixels w h) = VectorImage (V.map ((\x -> max 0   (x-1))) pixels) w h

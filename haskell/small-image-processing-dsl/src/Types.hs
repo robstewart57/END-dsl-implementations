@@ -5,7 +5,7 @@
 
 module Types where
 
-import Data.Vector
+import Data.Vector.Unboxed
 import Data.Array.Repa (Array,D,U,Z,(:.))
 import qualified Data.Array.Repa as R
 import Data.Array.Repa.Eval (Load)
@@ -24,7 +24,7 @@ data VectorImage = VectorImage
            { pixels :: Vector Int -- ^ row major order
            , width  :: Int
            , height :: Int
-           } deriving (Generic)
+           } deriving (Generic,Show)
 
 instance NFData VectorImage
 
