@@ -22,13 +22,17 @@ double difftime( double e, double s)
   return( e - s);
 }
 
-// just make + the operator in the programs?
+int getLine()
+{
+  success, result=ScalarIO::fscanint(stdin);
+  return result;
+}
+
 int[.,.] brightenBy(int[.,.] img, int i)
 {
   return min (img + i , 255);
 }
 
-// same for darkenBy.. - ?
 int[.,.] darkenBy(int[.,.] img, int i)
 {
   return max (img - i , 0);
@@ -86,9 +90,9 @@ int[.,.] togreyscale( Color8::color[.,.] img)
   img_i = Color8::toi( img);
   img_g = with {
   ( . <= iv <= .) :
-  toi ( (tod( (int) Array::sel( [0], Array::sel( iv, img_i))) * 0.3)
-        + (tod ((int) Array::sel( [1], Array::sel( iv, img_i))) * 0.59)
-        + (tod( (int) Array::sel( [2], Array::sel( iv, img_i))) * 0.11) ) ;
+  toi ( (tod( (int) Array::sel( [0], Array::sel( iv, img_i))) * 0.21)
+        + (tod ((int) Array::sel( [1], Array::sel( iv, img_i))) * 0.71)
+        + (tod( (int) Array::sel( [2], Array::sel( iv, img_i))) * 0.07) ) ;
   } : genarray( Color8::shape( img), 0);
   return img_g;
 }
