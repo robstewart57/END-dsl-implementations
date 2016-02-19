@@ -3,7 +3,7 @@ COMPILER=$(SAC2CDIR)/bin/sac2c
 COMPILER_ARGS=-t mt_pth
 
 # all: prog1 prog2 prog3 prog4 prog5
-all: dsl prog1 prog2 prog5
+all: dsl prog1 prog2 prog3 prog4 prog5
 
 prog1: dsl
 	$(COMPILER) $(COMPILER_ARGS) prog1.sac -o prog1
@@ -22,3 +22,6 @@ prog5: dsl
 
 dsl:
 	$(COMPILER) $(COMPILER_ARGS) DSL.sac
+
+clean:
+	rm tree/host/libENDTree.so prog1 prog2 prog3 prog4 prog5
