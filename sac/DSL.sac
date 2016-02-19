@@ -25,19 +25,19 @@ double difftime( double e, double s)
 // just make + the operator in the programs?
 int[.,.] brightenBy(int[.,.] img, int i)
 {
-  return img + i;
+  return min (img + i , 255);
 }
 
 // same for darkenBy.. - ?
 int[.,.] darkenBy(int[.,.] img, int i)
 {
-  return img - i;
+  return max (img - i , 0);
 }
 
 inline
 int[.,.] blurX(int[.,.] img)
 {
-  return (shiftRight( 0, img[0], img) + img + shiftLeft( 0, img[9], img)) / 3;
+  return (shiftRight( 0, img[0], img) + (2*img) + shiftLeft( 0, img[9], img)) / 4;
 }
 
 int[.,.] blurY(int[.,.] img)
