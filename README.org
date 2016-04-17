@@ -1,0 +1,115 @@
+
+* About this repository
+
+This repository contains source code for implementations of 5
+image processing programs using 6 DSLs. The findings are described in
+
+"/An Image Processing Language: External and Shallow/Deep
+Embeddings/". R Stewart. Proceedings of the 1st International Workshop
+on Real World Domain Specific Languages, Barcelona, March 2016.
+
+- ACM digital library :: http://dl.acm.org/citation.cfm?id=2892270
+- Direct PDF link :: http://www.macs.hw.ac.uk/~rs46/papers/rwdsl2016/rwdsl-2016.pdf
+
+
+
+* The image processing language
+
+The 1 language implemented 6 ways is:
+
+#+BEGIN_EXAMPLE
+imread   : String -> Image
+imwrite  : Image -> String -> ()
+brighten : Int -> Image -> Image
+brighten : Int -> Image -> Image
+darken   : Int -> Image -> Image
+blurX    : Image -> Image
+blurY    : Image -> Image
+#+END_EXAMPLE
+
+* Image processing benchmarks
+
+Each of the 6 DSLs are used to implement the following 5 benchmark
+programs:
+
+#+BEGIN_EXAMPLE
+prog1 =
+  img1 = imread("in.png");
+  img2 = brightenBy(20,img1);
+  imwrite(img2,"prog1-out.png");
+
+prog2 =
+  img1 = imread("in.png");
+  img2 = blurX(img1);
+  img3 = blurX(img2);
+  imwrite(img3,"prog2-out.png");
+
+prog3 =
+  img1 = imread("in.png");
+  m    = getLine();
+  img2 = brightenBy(m,img1);
+  img3 = darkenBy(m,img2);
+  imwrite(img2,"prog3-out.png");
+
+prog4 =
+  img1 = imread("in.png");
+  m    = getLine();
+  n    = getLine();
+  img2 = brightenBy(m,img1);
+  img3 = darkenBy(n,img2);
+  imwrite(img3,"prog4-out.png");
+
+prog5 =
+  img1 = imread("in.png");
+  img2 = blurX(img1);
+  img3 = blurY(img2);
+  img4 = brightenBy(30,img3);
+  imwrite(img4,"prog5-out.png");
+#+END_EXAMPLE
+
+
+* Compiling and running the programs
+
+*** Compiling Haskell DSL programs
+
+To compile the Haskell DSL programs, install ~stack~ from
+http://www.haskellstack.org then run ~stack install~ within the
+~haskell/small-image-processing-dsl/~ directory. It will create 20
+executable files (5 for each 4 Haskell based DSLs):
+prog1-shallow-vector, prog2-shallow-vector, prog3-shallow-vector,
+prog4-shallow-vector, prog5-shallow-vector, prog1-shallow-repa,
+prog2-shallow-repa, prog3-shallow-repa, prog4-shallow-repa,
+prog5-shallow-repa, prog1-deep-gadt, prog2-deep-gadt, prog3-deep-gadt,
+prog14-deep-gadt, prog5-deep-gadt, prog1-deep-accelerate,
+prog2-deep-accelerate, prog3-deep-accelerate, prog4-deep-accelerate
+and prog5-deep-accelerate.
+
+*** Compiling Halide programs
+
+To compile the Halide image processing programs, download the Halide
+C++ libraries from http://halide-lang.org . Modify the ~HALIDE_HOME~
+environment variable in ~halide/Makefile~ then run ~make~ in the
+~halide/~ directory. It will create 5 executable files: prog1, prog2,
+prog3, pro4 and prog5.
+
+To compile the Halide audio processing program, download and compile
+the midifile library from https://github.com/craigsapp/midifile
+. Modify the ~MIDIFILE_HOME~ and ~HALIDE_HOME~ environment variables
+in ~halide/audio-processing/Makefile~, then run ~make in the
+~halide/audio-processing/~ directory. It will create 1 executable file.
+
+*** Compiling SaC programs
+
+To compile the SaC programs, install the SaC compiler from
+http://www.sac-home.org . Modify the ~SAC2CDIR~ environment variable
+in ~sac/Makefile~, then run ~make~ in the ~sac/~ directory. It will
+create 5 executable files: prog1, prog2, prog3, prog4 and prog5.
+
+
+* Source image
+
+The ~Creative-Commons-Infographic.png~ source image file is the one processed by
+all programs. It should be downloaded to the ~images/~ directory
+before running the programs. Download the image from:
+
+http://www.sharingame.org/media/Creative-Commons-Infographic.png
